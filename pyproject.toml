@@ -21,7 +21,7 @@ environments = [
 ]
 
 [tool.uv.build-backend]
-module-name = "template-package"
+module-name = "template_package"
 namespace = false
 
 [[tool.uv.index]]
