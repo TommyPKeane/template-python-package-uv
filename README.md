@@ -16,6 +16,8 @@ Per the `LICENSE` file, this repository is setup with an MIT License for Free an
 - [Windows 11](#windows-11)
 - [Developer Setup](#developer-setup)
     - [Updating `ruff` and other `uv` Tools](#updating-ruff-and-other-uv-tools)
+    - [Updating Dependencies \(and `uv.lock` File\)](#updating-dependencies-and-uvlock-file)
+    - [Recreating the `uv.lock` File](#recreating-the-uvlock-file)
 - [Python Package Processes](#python-package-processes)
     - [Run and Debug with Unit-Testing _via_ `pytest`](#run-and-debug-with-unit-testing-via-pytest)
     - [Locally Build the Python Package as a `.whl` \(Wheel\)](#locally-build-the-python-package-as-a-whl-wheel)
@@ -114,7 +116,7 @@ source ~/.bashrc
     ```
 1. Install the Python dependencies and setup the local Package with `uv` by relying on the already active `direnv` and `pyenv` local virtual environment:
     ```bash
-    uv sync --active
+    uv sync --active --frozen
     ```
 
 `uv` recommends to use their built-in `venv` management for Virtual Environments, but with this example we're showing how to rely on `direnv` and `pyenv`, which can be a bit more featureful and stable as `uv` is still in active development.
@@ -140,6 +142,32 @@ or you can update anything you have installed as a tool via `uv` with:
 ```bash
 uv tool upgrade --all
 ```
+
+<a id="updating-dependencies-and-uvlock-file"></a>
+### Updating Dependencies (and `uv.lock` File)
+
+You can run:
+
+```bash
+uv sync --active --upgrade
+```
+
+<a id="recreating-the-uvlock-file"></a>
+### Recreating the `uv.lock` File
+
+If you decide to delete the `uv.lock` file, you'll want to recreate it for other developers (and your future self) to stay aligned, so you should run:
+
+```bash
+uv sync --active
+```
+
+Then once the `uv.lock` file is created, you and other developers should always use:
+
+```bash
+uv sync --active --frozen
+```
+
+to make sure you only install from  the `uv.lock` file versions when cloning the repository.
 
 <a id="python-package-processes"></a>
 ## Python Package Processes
